@@ -1,0 +1,329 @@
+---
+title: "QS2"
+author: "Rohan Giri"
+date: "2024-08-02"
+output:
+  pdf_document:
+    latex_engine: lualatex
+---
+
+## This problem involves the Boston data set, which we saw in the lab for this chapter. We will now try to predict per capita crime rate using the other variables in this data set. In other words, per capita crime rate is the response, and the other variables are the predictors.
+
+## (a) For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response? Create some plots to back up your assertions.
+
+
+```{r}
+# Loading necessary libraries
+library(MASS)
+library(ggplot2)
+
+# Loading the Boston dataset
+data("Boston")
+attach(Boston)
+```
+
+### Fitting a simple linear regression model to predict the reponse for each predictors
+
+```{r} 
+
+#crim and zn linear model
+
+linear_model_fit.zn <- lm(crim ~zn)
+summary(linear_model_fit.zn)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Proportion of residential land zoned for lots over 25,000 sq. ft
+
+plot(zn,crim,pch = 20, main = "Relationship between crim and zn")
+abline(linear_model_fit.zn, col = "green", lwd = 4)
+```
+
+### The  graph shows that there is a low negative relations between zn and crim
+
+```{r}
+
+#crim and indus linear model
+
+linear_model_fit.indus <- lm(crim ~indus)
+summary(linear_model_fit.indus)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Proportion of non-retail business acres per town
+
+plot(indus,crim,pch = 20, main = "Relationship between crim and indus")
+abline(linear_model_fit.indus, col = "blue", lwd = 4)
+
+```
+
+###  The  graph shows that there is a slightly positive relations between indus and crim
+
+```{r}
+#crim and chas linear model
+
+linear_model_fit.chas <- lm(crim ~chas)
+summary(linear_model_fit.chas)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Charles River dummy variable (1 if tract bounds river; 0 otherwise
+
+plot(chas,crim,pch = 20, main = "Relationship between crim and chas")
+abline(linear_model_fit.chas, col = "green", lwd = 4)
+
+```
+
+### The  graph shows that there is a no relations between chas and crim
+
+```{r}
+#crim and nox linear model
+
+linear_model_fit.nox <- lm(crim ~nox)
+summary(linear_model_fit.nox)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Nitric oxides concentration (parts per 10 million)
+
+plot(nox,crim,pch = 20, main = "Relationship between crim and nox")
+abline(linear_model_fit.nox, col = "blue", lwd = 4)
+
+```
+
+### The graph shows that there is a slightly lower positive relations between nox and crim
+
+```{r}
+#crim and rm linear model
+
+linear_model_fit.rm <- lm(crim ~rm)
+summary(linear_model_fit.rm)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Average number of rooms per dwelling
+
+plot(rm,crim,pch = 20, main = "Relationship between crim and rm")
+abline(linear_model_fit.rm, col = "green", lwd = 4)
+```
+
+### The  graph shows that there is a slightly negative relations between rm and crim
+
+```{r}
+#crim and age linear model
+
+linear_model_fit.age <- lm(crim ~age)
+summary(linear_model_fit.age)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Proportion of owner-occupied units built prior to 1940
+
+plot(age,crim,pch = 20, main = "Relationship between crim and age")
+abline(linear_model_fit.age, col = "blue", lwd = 4)
+```
+
+### The  graph shows that there is a low positive relations between age and crim
+
+```{r}
+#crim and dis linear model
+
+linear_model_fit.dis <- lm(crim ~dis)
+summary(linear_model_fit.dis)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Weighted distances to five Boston employment centers
+
+plot(dis,crim,pch = 20, main = "Relationship between crim and dis")
+abline(linear_model_fit.dis, col = "green", lwd = 4)
+```
+
+### The  graph shows that there is a low slope relations between dis and crim
+
+```{r}
+#crim and rad linear model
+
+linear_model_fit.rad <- lm(crim ~rad)
+summary(linear_model_fit.rad)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Index of accessibility to radial highways
+
+plot(rad,crim,pch = 20, main = "Relationship between crim and rad")
+abline(linear_model_fit.rad, col = "blue", lwd = 4)
+```
+
+### The  graph shows that there is a  positive relations between rad and crim
+
+```{r}
+#crim and tax linear model
+
+linear_model_fit.tax <- lm(crim ~tax)
+summary(linear_model_fit.tax)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Full-value property tax rate per $10,000
+
+plot(tax,crim,pch = 20, main = "Relationship between crim and tax")
+abline(linear_model_fit.tax, col = "green", lwd = 4)
+```
+
+### The  graph shows that there is slight positive relations between tax and crim
+
+```{r}
+
+#ptratio and tax linear model
+
+linear_model_fit.ptratio <- lm(crim ~ptratio)
+summary(linear_model_fit.ptratio)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Pupil-teacher ratio by town
+
+plot(ptratio,crim,pch = 20, main = "Relationship between crim and ptratio")
+abline(linear_model_fit.ptratio, col = "blue", lwd = 4)
+```
+
+### The  graph shows that there is low positive relations between tax and ptratio
+
+```{r}
+#crim and black linear model
+
+linear_model_fit.black <- lm(crim ~black)
+summary(linear_model_fit.black)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and 1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town
+
+plot(black,crim,pch = 20, main = "Relationship between crim and black")
+abline(linear_model_fit.black, col = "green", lwd = 4)
+```
+
+### The  graph shows that there is significant relations between black and crim
+
+```{r}
+
+#crim and lstat linear model
+
+linear_model_fit.lstat <- lm(crim ~lstat)
+summary(linear_model_fit.lstat)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Percentage of lower status of the population
+
+plot(lstat,crim,pch = 20, main = "Relationship between crim and black")
+abline(linear_model_fit.lstat, col = "blue", lwd = 4)
+```
+
+### The  graph shows that there is slight positive relations between lstat and crim
+
+```{r}
+
+#crim and medv linear model
+
+linear_model_fit.medv <- lm(crim ~medv)
+summary(linear_model_fit.medv)
+
+#Plotting the Relationship Graph between Per capita crime rate by town and Median value of owner-occupied homes in $1000s
+
+plot(medv,crim,pch = 20, main = "Relationship between crim and black")
+abline(linear_model_fit.medv, col = "green", lwd = 4)
+```
+
+### The  graph shows that there is slight positive relations between medv and crim
+
+
+## (b) Fit a multiple regression model to predict the response using all of the predictors. Describe your results. 'For which predictors can we reject the null hypothesis H0 : βj =0?'
+
+
+```{r}
+
+# Fitting Multiple regression model to predict the response using all of the predictors
+
+multiple_regression_fit <- lm(crim ~.,data = Boston)
+summary(multiple_regression_fit)
+
+# The null hypotheis can be rejected for the following predictors “zn”, “dis”, “rad”, “black”, and “medv” .
+
+```
+
+
+
+## (c) How do your results from (a) compare to your results from (b)? Create a plot displaying the univariate regression coefficients from (a) on the x-axis, and the multiple regression coefficients from (b) on the y-axis. That is, each predictor is displayed as a single point in the plot. Its coefficient in a simple linear regression model is shown on the x-axis, and its coefficient estimate in the multiple linear regression model is shown on the y-axis.
+
+```{r}
+
+# ## Putting the Simple Regression for all the coefficients
+# univariate.regressio <- vector("numeric",0)
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.zn$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.indus$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.chas$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.nox$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.rm$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.age$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.dis$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.rad$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.tax$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.ptratio$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.black$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.lstat$coefficient[2])
+# univariate.regressio <- c(univariate.regressio, linear_model_fit.medv$coefficient[2])
+# multiple.regression <- vector("numeric", 0)
+# multiple.regression <- c(multiple.regression, multiple_regression_fit$coefficients)
+# multiple.regression <- multiple.regression[-1]
+# plot(univariate.regressio, multiple.regression, col = "blue")
+
+### Note : Running the above code gives the graph showing the plot between univariate regression and  multiple regression coefficients , and as it is creating errors while knitting the file ,I have made it as a comment.
+
+```
+### The coefficients obtained from simple and multiple regression models can differ because, in simple regression, the slope term indicates the average effect of a predictor on the response variable without accounting for other predictors.On the other side , in multiple regression, the slope term represents the average effect of a predictor while controlling for the influence of other predictors. 
+
+
+## (d) Is there evidence of non-linear association between any of the predictors and the response? To answer this question, for each predictor X, fit a model of the form Y =β0+β1X+β2X2+β3X3+ϵ
+
+```{r}
+
+#For checking for non linear association between the predictors , checking one by one : 
+
+linear_model_fit.zn2 <- lm(crim ~ poly(zn, 3))
+summary(linear_model_fit.zn2)
+
+```
+```{r}
+linear_model_fit.indus2 <- lm(crim ~ poly(indus, 3))
+summary(linear_model_fit.indus2)
+```
+
+```{r}
+linear_model_fit.nox2 <- lm(crim ~ poly(indus, 3))
+summary(linear_model_fit.nox2)
+```
+
+```{r}
+linear_model_fit.rm2 <- lm(crim ~ poly(indus, 3))
+summary(linear_model_fit.rm2)
+```
+
+```{r}
+linear_model_fit.age2 <- lm(crim ~ poly(indus, 3))
+summary(linear_model_fit.age2)
+```
+
+```{r}
+linear_model_fit.dis2 <- lm(crim ~ poly(indus, 3))
+summary(linear_model_fit.dis2)
+```
+
+```{r}
+linear_model_fit.rad2 <- lm(crim ~ poly(indus, 3))
+summary(linear_model_fit.rad2)
+```
+
+```{r}
+linear_model_fit.tax2 <- lm(crim ~ poly(indus, 3))
+summary(linear_model_fit.tax2)
+```
+
+```{r}
+linear_model_fit.ptratio2 <- lm(crim ~ poly(indus, 3))
+summary(linear_model_fit.ptratio2)
+```
+
+```{r}
+linear_model_fit.black2 <- lm(crim ~ poly(indus, 3))
+summary(linear_model_fit.black2)
+```
+
+```{r}
+linear_model_fit.lstat2 <- lm(crim ~ poly(indus, 3))
+summary(linear_model_fit.lstat2)
+```
+
+```{r}
+linear_model_fit.medv2 <- lm(crim ~ poly(indus, 3))
+summary(linear_model_fit.medv2)
+```
+
+###  For the predictors “zn”, “rm”, “rad”, “tax”, and “lstat”, the p-values indicate that the cubic term is not statistically significant. In contrast, for predictors “indus”, “nox”, “age”, “dis”, “ptratio”, and “medv”, the p-values suggest that the cubic term is appropriate. For the predictor “black”, the p-values show that neither the quadratic nor cubic terms are statistically significant, indicating no visible non-linear effects in this case.
