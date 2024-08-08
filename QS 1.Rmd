@@ -1,0 +1,139 @@
+---
+title: "QS1"
+author: "Rohan Giri"
+date: "2024-08-04"
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r setup, include=FALSE}
+# Set the CRAN repository
+options(repos = c(CRAN = "https://cloud.r-project.org/"))
+```
+
+# 1. R and exploratory data analysis: Chapter 2: #10
+
+## (a) To begin, load in the Boston data set. The Boston data set is part of the ISLR2 library.
+```{r}
+# Load necessary libraries
+library(ISLR2)
+
+?Boston
+dim(Boston)
+```
+## (a) How many rows are in this data set? How many columns? What do the rows and columns represent?
+
+### In this data set there are 506 rows and 13 columns. The rows represent different census tracts and the column represents different variable related to the census tracts.
+
+## (b)  : Make some pairwise scatterplots of the predictors (columns) in this data set. Describe your findings.
+
+```{r}
+str(Boston)
+pairs(Boston)
+
+```
+
+### The above plot shows that some of the varibales seems to be correlated.If the correlation matrix would have been here , it would be more helpful
+
+## (c) Are any of the predictors associated with per capita crime rate? If so, explain the relationship.
+
+###  There is a positive correlation  of 'crim' with 'rad'(index of accessibility to radial highways) which shows that the area with improved highway connectivity shows higher criminal rate.
+
+## (d) Do any of the census tracts of Boston appear to have particularly high crime rates? Tax rates? Pupil-teacher ratios? Comment on the range of each predictor.
+
+```{r}
+library(ggplot2)
+
+summary(Boston$crim)
+
+qplot(Boston$crim, binwidth=5 , xlab = "Crime rate", ylab="Number of Suburbs" )
+
+summary(Boston$tax)
+
+qplot(Boston$tax, binwidth=50 , xlab = "Full-value property-tax rate per $10,000", ylab="Number of Suburbs")
+
+summary(Boston$ptratio)
+
+qplot(Boston$ptratio, binwidth=5, xlab ="Pupil-teacher ratio by town", ylab="Number of Suburbs")
+
+
+
+
+
+
+
+
+
+```
+
+## (e)How many of the census tracts in this data set bound the Charles river?
+
+```{r}
+river_charles_count <- sum(Boston$chas == 1)
+print(river_charles_count)
+
+# There are 35 census tracts in the datset bound the Charles river.
+```
+## (f) What is the median pupil-teacher ratio among the towns in this data set?
+
+```{r}
+# checking the median pupil teacher ratio
+
+median_pupil_teacher_ratio <- median(Boston$ptratio)
+print(median_pupil_teacher_ratio)
+
+# The median pupil-teacher ratio among the towns is 19.05.
+
+```
+
+##(g) Which census tract of Boston has lowest median value of owner occupied homes? What are the values of the other predictors for that census tract, and how do those values compare to the overall ranges for those predictors? Comment on your findings.
+
+```{r}
+#checking the lowest median values
+
+lowest_median_value <- which.min(Boston$medv)
+
+lowest_median_tract <- Boston[lowest_median_value, ] 
+
+print(lowest_median_tract)
+
+predict_ranges <- sapply(Boston, range)
+
+print(predict_ranges)
+
+
+```
+
+### The suburb 399 is having the lowest median value.
+
+### The census tract with the lowest median value of owner-occupied homes has characteristics typically associated with lower property values as follows: high crime rate (crim), poor air quality (nox), older housing stock (age) , and high proportion of lower-status population(lstat).
+
+### The factors, combined along with high property tax rates(tax) and higher pupil-teacher ratios(ptratio), contribute to the lower median home value in this tract.
+
+
+## (h) In this data set, how many of the census tracts average more than seven rooms per dwelling? More than eight rooms per dwelling? Comment on the census tracts that average more than eight rooms per dwelling.
+
+```{r}
+
+# checking the census tract averaging more than seven rooms per dwelling 
+
+room_avg_more_than_seven <- sum(Boston$rm > 7) 
+print(room_avg_more_than_seven)
+
+```
+### There are 64 suburbs with more than 7 rooms per dwelling.
+```{r}
+# checking the census tract averaging more than eight rooms per dwelling 
+
+room_avg_more_than_eight <- sum(Boston$rm > 8) 
+print(room_avg_more_than_eight)
+
+```
+
+### There are 13 suburbs with more than 8 rooms per dwelling.
+
+```{r}
+## for more than eight rooms per dwelling 
+summary(room_avg_more_than_eight)
+```
+
